@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saffron Bites - Modern Restaurant</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #FF6B6B;
+            --secondary: #4ECDC4;
+            --accent: #FFE66D;
+            --dark: #1A1A2E;
+            --light: #FFFFFF;
+            --success: #38B2AC;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--light);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header Styles */
+        header {
+            padding: 20px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: var(--accent);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            background: var(--primary);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        /* Menu Sections */
+        .section-title {
+            text-align: center;
+            margin: 80px 0 40px;
+            font-size: 3rem;
+            color: var(--accent);
+        }
+
+        .menu-section {
+            margin: 60px 0;
+            padding: 40px 0;
+        }
+
+        .scroll-container {
+            overflow-x: auto;
+            padding: 20px 0;
+            margin: 0 -20px;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .scroll-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .scroll-wrapper {
+            display: flex;
+            gap: 25px;
+            padding: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .menu-item {
+            min-width: 300px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .item-image {
+            width: 100%;
+            height: 200px;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+
+        .item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .menu-item:hover .item-image img {
+            transform: scale(1.1);
+        }
+
+        .item-title {
+            font-size: 1.4rem;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+
+        .item-description {
+            color: #ccc;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        .item-price {
+            color: var(--primary);
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+
+        /* About Section */
+        .about-section {
+            padding: 80px 0;
+            background: rgba(26, 26, 46, 0.8);
+            margin: 60px 0;
+            border-radius: 30px;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about-image {
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+
+        .about-text h2 {
+            color: var(--accent);
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .about-text p {
+            color: #ccc;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            padding: 60px 0 20px;
+            margin-top: 80px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3 {
+            color: var(--accent);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .footer-section p, .footer-section a {
+            color: #ccc;
+            margin-bottom: 10px;
+            display: block;
+            text-decoration: none;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .menu-item {
+                min-width: 250px;
+            }
+        }
+
+        /* Animation and Effects */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--accent);
+            font-size: 2rem;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-20px); }
+            60% { transform: translateX(-50%) translateY(-10px); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container nav-container">
+            <a href="#" class="logo">Saffron Bites</a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#menu">Menu</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Savor the Flavor</h1>
+            <p>Experience culinary excellence with our modern twist on traditional recipes, crafted with passion and the finest ingredients.</p>
+            <a href="#menu" class="cta-button">Explore Menu</a>
+        </div>
+        <div class="scroll-hint">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- Featured Dishes -->
+    <section class="menu-section" id="menu">
+        <h2 class="section-title">Featured Dishes</h2>
+        <div class="container">
+            <div class="scroll-container">
+                <div class="scroll-wrapper">
+                    <div class="menu-item">
+                        <div class="item-image">
+                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/6e434876-dc58-4287-b22a-d84e49aeae61.png" alt="Gourmet burger with caramelized onions, melted cheese, and fresh vegetables on a wooden board" />
+                        </div>
+                        <h3 class="item-title">Signature Burger</h3>
+                        <p class="item-description">Juicy beef patty with caramelized onions, aged cheddar, and our secret sauce</p>
+                        <p class="item-price">$18.99</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-image">
+                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/8bd2a99a-0e7f-4274-84ea-d73150c78cd9.png" alt="Artisanal pasta dish with fresh herbs and parmesan cheese in a rustic ceramic bowl" />
+                        </div>
+                        <h3 class="item-title">Truffle Pasta</h3>
+                        <p class="item-description">Handmade pasta with black truffle, parmesan cream, and fresh herbs</p>
+                        <p class="item-price">$24.99</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-image">
+                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/5a2fd167-b25d-4e1b-a8d3-20f41d525882.png" alt="Colorful seafood platter with grilled fish, shrimp, and lemon wedges on a slate plate" />
+                        </div>
+                        <h3 class="item-title">Ocean Platter</h3>
+                        <p class="item-description">Fresh seafood selection with grilled vegetables and lemon herb butter</p>
+                        <p class="item-price">$32.99</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-image">
+                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/21f7c7ca-86d3-485d-8bd2-81036c2f07fa.png" alt="Vibrant vegan bowl with quinoa, roasted vegetables, avocado, and edible flowers" />
+                        </div>
+                        <h3 class="item-title">Rainbow Bowl</h3>
+                        <p class="item-description">Organic quinoa with seasonal vegetables, avocado, and tahini dressing</p>
+                        <p class="item-price">$16.99</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-image">
+                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/938966a6-a1ca-44eb-a4a1-c594949e2815.png" alt="Decadent chocolate lava cake with vanilla ice cream and berry garnish" />
+                        </div>
+                        <h3 class="item-title">Chocolate Delight</h3>
+                        <p class="item-description">Warm chocolate lava cake with vanilla bean ice cream and berry compote</p>
+                        <p class="item-price">$12.99</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Courses -->
+    <section class="menu-section">
+        <h2 class="section-title">Main Courses</h2>
+        <div class="container">
+            <div class="scroll-container">
+                <div class="scroll-wrapper">
+                    <div class="menu-item">
+                        <div class="item-image">
+                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/a8913a8d-bfd1-448e-9930-f00735dc6cff.png" alt="Perfectly grilled steak with herb butter and roasted potatoes on a cast iron skillet" />
+                        </div>
+                        <h3 class="item-title">Prime Ribeye</h3>
+                        <p class="item-description">28-day aged ribeye with roasted garlic butter and truffle mashed potatoes</p>
+                        <p class="item-price">$38.99</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-image">
+                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/53c2a1b2-1276-47d6-ba0a-ca316a0be42d.png" alt="Herb-crusted salmon fillet with seasonal vegetables and lemon beurre blanc sauce" />
+                        </div>
+                        <h3 class="item-title">Atlantic Salmon</h3>
+                        <p class="item-description">Herb-crusted salmon with seasonal vegetables and lemon beurre blanc</p>
+                        <p class="item-price">$26.99</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-image">
+                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/38c98ba6-2391-44c5-b2ff-46ea5872c617.png" alt="Italian risotto with wild mushrooms, parmesan cheese, and fresh parsley garnish" />
+                        </div>
+                        <h3 class="item-title">Mushroom Risotto</h3>
+                        <p class="item-description">Creamy arborio rice with wild mushrooms and parmesan reggiano</p>
+                        <p class="item-price">$22.99</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section" id="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-image">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/e1068e46-65c7-40ce-b687-06b640ef57a2.png" alt="Modern restaurant interior with warm lighting, wooden tables, and green plants creating an inviting atmosphere" />
+                </div>
+                <div class="about-text">
+                    <h2>Our Story</h2>
+                    <p>Founded in 2015, Saffron Bites began as a small family dream to bring exceptional culinary experiences to our community. Our chefs combine traditional techniques with modern innovation, creating dishes that tell a story with every bite.</p>
+                    <p>We source our ingredients from local farmers and producers, ensuring the freshest quality while supporting our community. Every dish is crafted with passion and attention to detail.</p>
+                    <a href="#contact" class="cta-button">Visit Us</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Saffron Bites</h3>
+                    <p>Where every meal tells a story and every bite creates a memory.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-tripadvisor"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Hours</h3>
+                    <p>Monday - Thursday: 11AM - 10PM</p>
+                    <p>Friday - Saturday: 11AM - 11PM</p>
+                    <p>Sunday: 12PM - 9PM</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <p>123 Culinary Street</p>
+                    <p>Food District, City 10001</p>
+                    <p>Phone: (555) 123-4567</p>
+                    <p>Email: info@saffronbites.com</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <a href="#home">Home</a>
+                    <a href="#menu">Menu</a>
+                    <a href="#about">About</a>
+                    <a href="#contact">Contact</a>
+                    <a href="#">Reservations</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Hover scroll effect for menu sections
+        const scrollContainers = document.querySelectorAll('.scroll-container');
+        
+        scrollContainers.forEach(container => {
+            const wrapper = container.querySelector('.scroll-wrapper');
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+
+            container.addEventListener('mousedown', (e) => {
+                isDown = true;
+                startX = e.pageX - container.offsetLeft;
+                scrollLeft = container.scrollLeft;
+            });
+            
+            container.addEventListener('mouseleave', () => {
+                isDown = false;
+            });
+            
+            container.addEventListener('mouseup', () => {
+                isDown = false;
+            });
+            
+            container.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - container.offsetLeft;
+                const walk = (x - startX) * 2;
+                container.scrollLeft = scrollLeft - walk;
+            });
+
+            // Touch events for mobile
+            container.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].pageX - container.offsetLeft;
+                scrollLeft = container.scrollLeft;
+            }, { passive: true });
+
+            container.addEventListener('touchmove', (e) => {
+                if (e.touches.length !== 1) return;
+                const x = e.touches[0].pageX - container.offsetLeft;
+                const walk = (x - startX) * 2;
+                container.scrollLeft = scrollLeft - walk;
+            }, { passive: true });
+        });
+
+        // Parallax effect for hero section
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelector('.hero');
+            if (parallax) {
+                parallax.style.backgroundPositionY = -(scrolled * 0.5) + 'px';
+            }
+        });
+
+        // Animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.menu-item, .about-content').forEach(item => {
+            item.style.opacity = 0;
+            item.style.transform = 'translateY(20px)';
+            item.style.transition = 'all 0.6s ease-out';
+            observer.observe(item);
+        });
+    </script>
+</body>
+</html>
+
